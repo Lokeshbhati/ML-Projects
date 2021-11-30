@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Used Bike Price Prediction</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+
+    function onClickedEstimatePrice() {
+      console.log("Button Clicked!!");
+      var kms = document.getElementById("ik");
+      var year = document.getElementById("iy");
+
+      var power = document.getElementById("ip");
+      var cityName = document.getElementById("ic");
+      var ownerName = document.getElementById("io");
+      var brandName = document.getElementById("ib");
+      var modelName = document.getElementById("im");
+      var estPrice = document.getElementById("uiEstimatedPrice");
+
+      var url = "http://127.0.0.1:5000/predict_price";
+
+      $.post(url, {
+
+        kms: parseFloat(kms.value),
+        year: parseFloat(year.value),
+        power: parseFloat(power.value),
+        cityName: cityName.value,
+        ownerName: ownerName.value,
+        brandName: brandName.value,
+        modelName: modelName.value
+
+
+        }, function (data, status) {
+          console.log(data.Estimated_Price);
+          estPrice.innerHTML = "<p>Rs " + data.Estimated_Price.toString() + "</p>";
+          console.log(status);
+        });
+    }
+
+  </script>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+  <div class="img"></div>
+  <div>
+    <header>
+       <h1>Used Bike Price Prediction Model</h1>
+    </header>
+
+  <div class="form_container">
+
+      <img src="https://cdn.dribbble.com/users/2463018/screenshots/10523435/media/4ee01d0db02c5748d135ab7c6a7d8e7c.jpg?compress=1&resize=400x300">
+
+      <form class="form">
+      <div class="form_title">Enter Bike Details</div>
+      <br>
+
+      <!-- <h2>Age</h2> -->
+      <select class="numerical" type="text" id="iy" name="age">
+          <option value="" disabled="disabled" selected="olt">Year of Purchase</option>
+          <option>2021</option>
+          <option>2020</option>
+          <option>2019</option>
+          <option>2018</option>
+          <option>2017</option>
+          <option>2016</option>
+          <option>2015</option>
+          <option>2014</option>
+          <option>2013</option>
+          <option>2012</option>
+          <option>2011</option>
+          <option>2010</option>
+      </select>
+
+      <!-- <h2>Power</h2> -->
+      <input class="numerical" type="text" id="ip" name="power" placeholder="Engine Power (cc) | Range from 100 to 390">
+
+      <!-- <h2>Kilometers Driven</h2> -->
+      <input class="numerical" type="text" id="ik" name="km" placeholder="Kilometers Driven (km) | Range from 0 to 71000">
+
+      <!-- <h2>City Name</h2> -->
+      <div>
+        <select class="categorical" name="" id="ic">
+          <option value="" disabled="disabled" selected="selected">Your Location</option>
+          <option>Ahmedabad</option>
+          <option>Allahabad</option>
+          <option>Bangalore</option>
+          <option>Bhopal</option>
+          <option>Chennai</option>
+          <option>Delhi</option>
+          <option>Faridabad</option>
+          <option>Gautam buddha nagar</option>
+          <option>Ghaziabad</option>
+          <option>Godhara</option>
+          <option>Gurgaon</option>
+          <option>Hyderabad</option>
+          <option>Jaipur</option>
+          <option>Jodhpur</option>
+          <option>kadapa</option>
+          <option>Kanchipuram</option>
+          <option>Karnal</option>
+          <option>Lucknow</option>
+          <option>Mumbai</option>
+          <option>Noida</option>
+          <option>Pune</option>
+          <option>Rupnagar</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- <h2>Owner Type</h2> -->
+      <div>
+        <select class="categorical" name="" id="io">
+          <option value="" disabled="disabled" selected="olt">Owner Type</option>
+          <option>First Owner</option>
+          <option>Second Owner Or More</option>
+        </select>
+      </div>
+
+      <!-- <h2>Brand Name</h2> -->
+      <div>
+        <select class="categorical" name="" id="ib">
+          <option value="" disabled="disabled" selected="selected">Brand Name</option>
+          <option>Bajaj</option>
+          <option>Hero</option>
+          <option>Honda</option>
+          <option>KTM</option>
+          <option>Royal Enfield</option>
+          <option>Suzuki</option>
+          <option>TVS</option>
+          <option>Yamaha</option>
+          <option>Not So Popular Brand</option>
+        </select>
+      </div>
+
+      <!-- <h2>Model Name</h2> -->
+      <div>
+        <select class="categorical" name="" id="im">
+          <option value="" disabled="disabled" selected="selected">Model Name</option>
+          <option>Apache RTR 180cc</option>
+          <option>Avenger 220cc</option>
+          <option>Avenger Street 220</option>
+          <option>Bullet Electra 350cc</option>
+          <option>CB Hornet 160r std</option>
+          <option>CB Trigger 150cc</option>
+          <option>CBZ Xtreme 150cc</option>
+          <option>CD Deluxe 100cc</option>
+          <option>Classic 350cc</option>
+          <option>Fazer 150cc</option>
+          <option>Fazer 25 250cc</option>
+          <option>FZ 150cc</option>
+          <option>Hunk rear disc 150cc</option>
+          <option>Passion 100cc</option>
+          <option>Passion pro 100cc</option>
+          <option>Platina 100cc</option>
+          <option>Pulsar 150cc</option>
+          <option>Pulsar ns200</option>
+          <option>RC 390cc</option>
+          <option>Slingshot plus 125cc</option>
+          <option>Super splendor 125cc</option>
+          <option>SZ-RR 150cc</option>
+          <option>Thunderbird 350cc</option>
+          <option>YZF-r15 2.0 150cc</option>
+          <option>Zeus 125cc</option>
+          <option>Not so popular model</option>
+        </select>
+      </div>
+
+      <button class="submit" onclick="onClickedEstimatePrice()" type="button"> <p>Predict Price</p> </button>
+      <div id="uiEstimatedPrice" class="result">
+      <p>Result</p>
+      </div>
+    </form>
+  </div>
+
+</body>
+
+</html>
